@@ -38,7 +38,7 @@ export function HeaderHome() {
           </span>
 
           <span>
-            {isUserAuthenticated ? (
+            {!isUserAuthenticated ? (
               <img src="https://github.com/marcusvinicius0.png" />
             ) : (
               <span>

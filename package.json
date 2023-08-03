@@ -12,7 +12,6 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.15",
-    "@types/styled-components": "^5.1.26",
     "axios": "^1.3.4",
     "dotenv": "^16.0.3",
     "react": "^18.2.0",
@@ -24,6 +23,8 @@
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
+    "@types/vite-plugin-react-svg": "^0.2.2",
     "@vitejs/plugin-react": "^3.1.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0"
