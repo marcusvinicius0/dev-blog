@@ -1,35 +1,61 @@
 import { useEffect, useState } from "react";
 import movieAPIConfig from "../../services";
-import { BaseHomeContainer, IntroductionContainer, APIContainer } from "./styles";
-import exemploImg from '../../assets/O mascara.jpg'
-import Logo from '../../assets/netflix-exemplo.svg'
+import {
+  BaseHomeContainer,
+  IntroductionContainer,
+  APIContainer,
+} from "./styles";
+
+// import exemploImg from "../../assets/O mascara.jpg";
+import netflixLogo from "../../assets/netflix-exemplo.svg";
 interface MovieDataProps {
-  tmdbId: number;
-  title: string;
-  type: string;
-  year: string;
-  posterPath: string;
-  posterURLs: String[];
-  overview: string;
-  genres: Array<{ name: string }> | null;
+  id: number;
+  nome: string;
+  sinopse: string;
+  foto: string;
 }
 
 export function Home() {
   const [moviesList, setMoviesList] = useState<MovieDataProps[]>([]);
+  // const [moviesPicturesUrl, setMoviesPicturesUrl] = useState<string[]>([]);
+
+  const [showCaseMovie, setShowCaseMovie] = useState<MovieDataProps[]>([]);
 
   useEffect(() => {
-    async function getMovieAPIData() {
+    async function getMovieAPIData(): Promise<void> {
       try {
         const data = await movieAPIConfig.get(
-          "https://streaming-availability.p.rapidapi.com/v2/search/basic"
+          "https://sujeitoprogramador.com/r-api/?api=filmes"
         );
-        setMoviesList(data.data.result);
+        setMoviesList(data.data);
       } catch (err) {
         console.log(err);
       }
     }
     getMovieAPIData();
   }, []);
+
+  console.log("asas", moviesList);
+  
+
+  // function getImagesUrl(): void {
+  //   const moviePictures = moviesList?.map((url) => url.posterURLs);
+  //   const originalPicture = moviePictures?.map((img: any) => img.original);
+  //   setMoviesPicturesUrl(originalPicture);
+  // }
+
+  function getShowCaseMovie(): void {
+    const getMovies = moviesList;
+    const showCaseMovie = getMovies.filter(
+      (movie) => movie.nome === "Vingadores Ultimato"
+    );
+    setShowCaseMovie(showCaseMovie);
+  }
+
+  useEffect(() => {
+    // getImagesUrl();
+    getShowCaseMovie();
+  }, [moviesList]);
 
   return (
     <BaseHomeContainer>
@@ -44,37 +70,45 @@ export function Home() {
             </h2>
           </article>
         </IntroductionContainer>
-        <APIContainer>
-        <article>
-          <div className="fatherClass">
-            <div className="maskClass"><img src={exemploImg}></img></div>
-            <div className="divItemsAPI">
-              <div className="netflix"><img src={Logo} className="logo"/><span> Netflix . 12 minutes ago</span></div>
-              <div className="classText">
-                <h1>Where to watch<br />
-                 the movies</h1>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. <br/> Aperiam, aliquid blanditiis! Nihil id dicta iure, explicabo <br/> aspernatur libero veritatis quasi beatae
-                   minima nam <br/>  excepturi modi corrupti sunt, soluta quaerat quidem!</p>
+          {showCaseMovie?.map((caseMovie) => {
+            return (
+              <APIContainer key={caseMovie.id}>
+                <div>
+                  <img src={caseMovie.foto} alt={caseMovie.nome} />
+                </div>
 
-              </div>
-              <div className="textMovies"><span>Movies</span> . 4 min read</div>
-            </div>
-          </div>
-        </article>
-        </APIContainer>
+                <div>
+                  <div>
+                    <img className="netflix-logo" src={netflixLogo} alt="netflix logo" />
+                    <p>Netflix . 12 minutes ago</p>
+                  </div>
+
+                  <div>
+                    <h2>{caseMovie.nome}</h2>
+                    <p>{caseMovie.sinopse}</p>
+
+                    <span>
+                      <p>Movies</p>
+                    </span>
+                  </div>
+                </div>
+              </APIContainer>
+            )
+          })}
+
         {/* <section>
-        {moviesList?.map((movie) => {
-          return (
-            <div key={movie.tmdbId}>
-              <h2>{movie.title}</h2>
-              <time>{movie.year}</time>
-              <span>{movie.type}</span>
-              <p>{movie.overview}</p>
-              <img src={movie.posterURLs} alt="" />
-            </div>
-          );
-        })}
-      </section> */}
+          {moviesList && (
+            <>
+              {moviesList?.map((movie) => {
+                return <div key={movie.id}>
+                  <h1>{movie.nome}</h1>
+                  <img src={movie.foto} />
+                  <p>{movie.sinopse}</p>
+                </div>;
+              })}
+            </>
+          )}
+        </section> */}
       </main>
     </BaseHomeContainer>
   );
