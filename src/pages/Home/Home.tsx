@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import movieAPIConfig from "../../services";
-import { BaseHomeContainer, IntroductionContainer, APIContainer } from "./styles";
+import { BaseHomeContainer, IntroductionContainer, NewsAPIContainer } from "./styles";
 import exemploImg from '../../assets/O mascara.jpg'
-import Logo from '../../assets/netflix-exemplo.svg'
+import Logo from '../../assets/New-NETFLIX.png'
 interface MovieDataProps {
   tmdbId: number;
   title: string;
@@ -44,7 +44,7 @@ export function Home() {
             </h2>
           </article>
         </IntroductionContainer>
-        <APIContainer>
+        <NewsAPIContainer>
         <article>
           <div className="fatherClass">
             <div className="maskClass"><img src={exemploImg}></img></div>
@@ -61,7 +61,7 @@ export function Home() {
             </div>
           </div>
         </article>
-        </APIContainer>
+        </NewsAPIContainer>
         {/* <section>
         {moviesList?.map((movie) => {
           return (

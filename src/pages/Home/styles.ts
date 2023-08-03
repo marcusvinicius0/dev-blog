@@ -24,7 +24,7 @@ export const IntroductionContainer = styled.div`
   }
 `;
 
-export const APIContainer = styled.div`
+export const NewsAPIContainer = styled.div`
 
 .fatherClass {
   display:flex;
